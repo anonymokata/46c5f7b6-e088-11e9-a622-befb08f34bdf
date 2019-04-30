@@ -12,6 +12,9 @@ import Babysitter from "../../src/components/Babysitter";
  */
 const babysitter = shallowMount(Babysitter);
 
+const requestedStartTime = moment("17:00", "h:mma");
+const requestedEndTime = moment("17:00", "h:mma").add(11, "hours");
+
 describe("The babysitter", () => {
   it("should have a name.", () => {
     expect(babysitter.vm.getName())
@@ -19,17 +22,13 @@ describe("The babysitter", () => {
       .to.have.length.above(0);
   });
 
-  it("cannot start before 5pm.", () => {
-    const requestedStartTime = moment("17:00", "h:mma");
-
+  it("starts no earlier than 5pm.", () => {
     expect(babysitter.vm.validateStartTime(requestedStartTime)).to.equal(
       "Start time is valid."
     );
   });
 
-  it("cannot work beyond before 4am the next day.", () => {
-    const requestedEndTime = moment("17:00", "h:mma").add(11, "hours");
-
+  it("leaves no later than 4am.", () => {
     expect(babysitter.vm.validateEndTime(requestedEndTime)).to.equal(
       "End time is valid."
     );
