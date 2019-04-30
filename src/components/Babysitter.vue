@@ -18,12 +18,21 @@ export default {
     getName: function() {
       return this.name;
     },
-    checkAvailableStartTime: function(requestedStartTime) {
+    validateStartTime: function(requestedStartTime) {
       if (requestedStartTime.isSameOrAfter(this.availableStartTime)) {
         return "Start time is valid.";
       } else {
         if (requestedStartTime.isSameOrBefore(this.availableStartTime)) {
           return "Babysitter is not allowed start yet.";
+        }
+      }
+    },
+    validateEndTime: function(requestedEndTime) {
+      if (requestedEndTime.isSameOrBefore(this.availableEndTime)) {
+        return "End time is valid.";
+      } else {
+        if (requestedEndTime.isSameOrAfter(this.availableEndTime)) {
+          return "Babysitter is not allowed to work that late.";
         }
       }
     }

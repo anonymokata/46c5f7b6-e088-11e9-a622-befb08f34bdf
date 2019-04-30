@@ -22,8 +22,16 @@ describe("The babysitter", () => {
   it("cannot start before 5pm.", () => {
     const requestedStartTime = moment("17:00", "h:mma");
 
-    expect(babysitter.vm.checkAvailableStartTime(requestedStartTime)).to.equal(
+    expect(babysitter.vm.validateStartTime(requestedStartTime)).to.equal(
       "Start time is valid."
+    );
+  });
+
+  it("cannot work beyond before 4am the next day.", () => {
+    const requestedEndTime = moment("17:00", "h:mma").add(11, "hours");
+
+    expect(babysitter.vm.validateEndTime(requestedEndTime)).to.equal(
+      "End time is valid."
     );
   });
 });
