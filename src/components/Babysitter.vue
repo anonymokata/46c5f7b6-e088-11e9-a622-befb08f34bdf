@@ -17,6 +17,15 @@ export default {
   methods: {
     getName: function() {
       return this.name;
+    },
+    checkAvailableStartTime: function(requestedStartTime) {
+      if (requestedStartTime.isSameOrAfter(this.availableStartTime)) {
+        return "Start time is valid.";
+      } else {
+        if (requestedStartTime.isSameOrBefore(this.availableStartTime)) {
+          return "Babysitter is not allowed start yet.";
+        }
+      }
     }
   }
 };
